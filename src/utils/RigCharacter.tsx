@@ -44,15 +44,26 @@ type GLTFResult = GLTF & {
   animations: GLTFAction[];
 }
 
+type RigType = JSX.IntrinsicElements['group']
 
-export default function RigCharacter(props: JSX.IntrinsicElements['group']): JSX.Element {
+interface RigCharacterProps extends RigType {
+  // group: JSX.IntrinsicElements['group'],
+  action: boolean
+}
+
+export default function RigCharacter(props: RigCharacterProps): JSX.Element {
   const group = useRef<THREE.Group>()
   const { nodes, materials, animations } = useGLTF('/ME.glb') as GLTFResult
   const { actions } = useAnimations(animations, group)
 
   useEffect(() => {
-    // console.log(actions)
-    actions['rigAction.001']?.setLoop(LoopOnce, 1).play()
+    if (props.action) {
+      actions['rigAction.001']?.reset().setLoop(LoopOnce, 1).play()
+    } else {
+      actions['rigAction.001']?.stop()
+    }
+    // if we have a rig action, then look into prop.action
+    // otherwise pass
   })
 
   return (

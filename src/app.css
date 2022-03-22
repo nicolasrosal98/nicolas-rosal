@@ -1,8 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap");
 
 * {
-  height: 100%;
-  width: 100%;
   margin: 0;
 }
 
@@ -10,4 +8,8 @@ html,
 body {
   height: 100%;
   overflow: hidden;
+}
+
+Canvas {
+  height: 80vh;
 }
