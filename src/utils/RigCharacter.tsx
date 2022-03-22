@@ -6,7 +6,7 @@ import * as THREE from 'three'
 import React, { useEffect, useRef } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader'
-import { LoopOnce } from 'three'
+// import { LoopOnce } from 'three'
 
 type ActionName = 'rigAction.001'
 
@@ -55,16 +55,23 @@ export default function RigCharacter(props: RigCharacterProps): JSX.Element {
   const group = useRef<THREE.Group>()
   const { nodes, materials, animations } = useGLTF('/ME.glb') as GLTFResult
   const { actions } = useAnimations(animations, group)
-
+  console.log(actions['rigAction.001']?.paused)
   useEffect(() => {
+    const wave = actions['rigAction.001']
+    if (!wave) return
+
     if (props.action) {
-      actions['rigAction.001']?.reset().setLoop(LoopOnce, 1).play()
+      console.log('found model! animation playing')
+      wave.paused = false
+      wave.play()
     } else {
-      actions['rigAction.001']?.stop()
+      console.log('found model! no action')
+      wave.paused = true
     }
     // if we have a rig action, then look into prop.action
     // otherwise pass
-  })
+    // TO-DO: playback speed (with slider), angle, scroll-based animation.
+  }, [props.action, actions])
 
   return (
     <group ref={group} {...props} dispose={null}>
