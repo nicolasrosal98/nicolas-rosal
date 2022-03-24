@@ -13,3 +13,16 @@ body {
 Canvas {
   height: 80vh;
 }
+
+.body-canvas {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-column-gap: 10px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 50px;
+}

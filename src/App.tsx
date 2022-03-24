@@ -23,24 +23,24 @@ export default function App(): JSX.Element {
   }
 
   return (
-    <div>
+    <div className="body-canvas">
+      <div className="buttons">
+        <button onClick={() => setShouldAnimate(prev => !prev)}>Click to Play/Stop</button>
+        <br />
+        <button onClick={() => setView('front')}>Front View</button>
+        <button onClick={() => setView('back')}>Back View</button>
+        <button onClick={() => setView('left')}>Left View</button>
+      </div>
       <Canvas>
         <Suspense fallback={<Html>Loading...</Html>}>
-          <RigCharacter rotation={calculateRotation(view)} position={[0,0,3]} action={shouldAnimate}/>
+          <RigCharacter rotation={calculateRotation(view)} position={[0,-0.7,3.5]} action={shouldAnimate}/>
         </Suspense>
         <directionalLight position={[-10,0,0]} />
         <ambientLight intensity={0.5}/>
         {/* <gridHelper args={[10, 10, `white`, `gray`]} /> */}
-        <axesHelper scale={[5,5,5]} position={[0,0,0]}/>
+        {/* <axesHelper scale={[5,5,5]} position={[0,0,0]}/> */}
         <OrbitControls />
       </Canvas>
-      <div>
-        <button onClick={() => setShouldAnimate(prev => !prev)}>Click to Play/Stop</button>
-        <button onClick={() => setView('front')}>Front View</button>
-        <button onClick={() => setView('back')}>Back View</button>
-        <button onClick={() => setView('left')}>Left View</button>
-        <p>{shouldAnimate ? 'animating' : 'not animating'}</p>
-      </div>
     </div>
   );
 }

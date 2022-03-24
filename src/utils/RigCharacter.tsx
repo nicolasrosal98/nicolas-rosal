@@ -59,13 +59,10 @@ export default function RigCharacter(props: RigCharacterProps): JSX.Element {
   useEffect(() => {
     const wave = actions['rigAction.001']
     if (!wave) return
-
     if (props.action) {
-      console.log('found model! animation playing')
       wave.paused = false
       wave.play()
     } else {
-      console.log('found model! no action')
       wave.paused = true
     }
     // if we have a rig action, then look into prop.action
